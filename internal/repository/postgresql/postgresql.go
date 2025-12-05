@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	goshutdownchannel "github.com/ayayaakasvin/go-shutdown-channel"
-	"web-socket-test/internal/config"
+	"github.com/ayayaakasvin/web-socket-test/internal/config"
 
 	_ "github.com/lib/pq"
 )

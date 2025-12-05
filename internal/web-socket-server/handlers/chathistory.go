@@ -2,7 +2,8 @@ package handlers
 
 import (
 	"net/http"
-	"web-socket-test/internal/models/response"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models/response"
 )
 
 const (
@@ -20,7 +21,7 @@ func (h *Handlers) GetChatHistory() http.HandlerFunc {
 
 		data := response.NewData()
 		data["chat_history"] = history
-		
+
 		response.SendSuccessJson(w, http.StatusOK, data)
 	}
 }

@@ -3,9 +3,10 @@ package chatservice
 import (
 	"context"
 	"time"
-	"web-socket-test/internal/models"
-	"web-socket-test/internal/models/core"
-	"web-socket-test/internal/models/dto"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/core"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/dto"
 
 	"github.com/sirupsen/logrus"
 )
@@ -60,9 +61,9 @@ func (cs *ChatService) WriteMessageToClient(c *models.Client, msg *dto.WBSMessag
 }
 
 func (cs *ChatService) PushMessage(msg *dto.WBSMessage) {
-    select {
-    case cs.broadcast <- msg:
-    default:
-        cs.logger.WithField("len", len(cs.broadcast)).Warn("broadcast channel can not accept msg!")
-    }
+	select {
+	case cs.broadcast <- msg:
+	default:
+		cs.logger.WithField("len", len(cs.broadcast)).Warn("broadcast channel can not accept msg!")
+	}
 }

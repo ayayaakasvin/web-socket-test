@@ -2,7 +2,8 @@ package postgresql
 
 import (
 	"context"
-	"web-socket-test/internal/models"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
 )
 
 func (p *PostgreSQL) GetPublicUserInfo(ctx context.Context, userID uint) (*models.User, error) {

@@ -1,7 +1,7 @@
 package core
 
 import (
-	"web-socket-test/internal/models"
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
 )
 
 type ClientService interface {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"web-socket-test/internal/config"
+	"github.com/ayayaakasvin/web-socket-test/internal/config"
 
 	genericjwtservice "github.com/ayayaakasvin/generic-jwt-service"
 	"github.com/golang-jwt/jwt/v5"

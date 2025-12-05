@@ -2,8 +2,9 @@ package valkey
 
 import (
 	"context"
-	"web-socket-test/internal/models/core"
 	"time"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models/core"
 )
 
 type Valkey_Mock struct{}

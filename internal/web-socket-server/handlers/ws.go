@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"net/http"
-	"web-socket-test/internal/libs/validinput"
-	"web-socket-test/internal/models"
-	"web-socket-test/internal/models/dto"
-	"web-socket-test/internal/models/response"
-	"web-socket-test/internal/models/token"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/libs/validinput"
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/dto"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/response"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/token"
 )
 
 func (h *Handlers) WS_Handler() http.HandlerFunc {

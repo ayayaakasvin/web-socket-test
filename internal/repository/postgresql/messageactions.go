@@ -2,7 +2,8 @@ package postgresql
 
 import (
 	"context"
-	"web-socket-test/internal/models/dto"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models/dto"
 )
 
 // SaveMessage implements [core.ChatHistoryStorage].
@@ -42,9 +43,9 @@ func (p *PostgreSQL) GetRecentMessage(ctx context.Context, limit int) ([]*dto.WB
 	for rows.Next() {
 		msg := new(dto.WBSMessage)
 
-        if err := rows.Scan(&msg.ID, &msg.Payload, &msg.Type, &msg.Time, &msg.Origin.UserID, &msg.Origin.Username); err != nil {
-            return msgs, err
-        }
+		if err := rows.Scan(&msg.ID, &msg.Payload, &msg.Type, &msg.Time, &msg.Origin.UserID, &msg.Origin.Username); err != nil {
+			return msgs, err
+		}
 
 		switch msg.Type {
 		case dto.ConnectType, dto.DisconnectType:

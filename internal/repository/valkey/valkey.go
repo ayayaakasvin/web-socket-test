@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"web-socket-test/internal/config"
-	"web-socket-test/internal/models/core"
 	goshutdownchannel "github.com/ayayaakasvin/go-shutdown-channel"
+	"github.com/ayayaakasvin/web-socket-test/internal/config"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/core"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -59,7 +59,7 @@ func (c *Cache) Del(ctx context.Context, key string) error {
 }
 
 func (c *Cache) SetNX(ctx context.Context, key string, value any, ttl time.Duration) (bool, error) {
-	set:= c.connection.SetNX(ctx, key, value, ttl)
+	set := c.connection.SetNX(ctx, key, value, ttl)
 	return set.Val(), set.Err()
 }
 

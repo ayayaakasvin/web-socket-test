@@ -2,8 +2,8 @@
 package handlers
 
 import (
-	"web-socket-test/internal/models/core"
-	"web-socket-test/internal/services/jwtservice"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/core"
+	"github.com/ayayaakasvin/web-socket-test/internal/services/jwtservice"
 
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"

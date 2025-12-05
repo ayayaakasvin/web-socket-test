@@ -2,7 +2,8 @@ package clientservice
 
 import (
 	"sync"
-	"web-socket-test/internal/models"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
 
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
@@ -31,8 +32,8 @@ func (cm *ClientService) Register(c *models.Client) {
 	}
 
 	cm.clients[c.UserInfo.ID] = &models.Client{
-		UserInfo: c.UserInfo,
-		Conn:   c.Conn,
+		UserInfo:     c.UserInfo,
+		Conn:         c.Conn,
 		ConnectionID: uuid.NewString(),
 	}
 	cm.logger.WithField("user id", c.UserInfo.ID).Info("Client registered")
@@ -50,21 +51,21 @@ func (cm *ClientService) Unregister(userId uint) {
 }
 
 func (cm *ClientService) Snapshot() []*models.Client {
-    cm.mutex.RLock()
-    defer cm.mutex.RUnlock()
+	cm.mutex.RLock()
+	defer cm.mutex.RUnlock()
 
-    list := make([]*models.Client, 0, len(cm.clients))
-    for _, c := range cm.clients {
-        list = append(list, c)
-    }
-    return list
+	list := make([]*models.Client, 0, len(cm.clients))
+	for _, c := range cm.clients {
+		list = append(list, c)
+	}
+	return list
 }
 
 func (cm *ClientService) Close() int {
 	cm.mutex.Lock()
 	defer cm.mutex.Unlock()
 
-	counter := 0 
+	counter := 0
 	for id, client := range cm.clients {
 		client.Conn.Close()
 		delete(cm.clients, id)

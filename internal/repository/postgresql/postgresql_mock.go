@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"web-socket-test/internal/models"
-	"web-socket-test/internal/models/dto"
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/dto"
 )
 
 type PostgreSQL_Mock struct{}
@@ -13,7 +13,7 @@ type PostgreSQL_Mock struct{}
 var MockUser *models.User = &models.User{
 	ID:        67,
 	Username:  "John Doe",
-	Role: models.AdminRole,
+	Role:      models.AdminRole,
 	CreatedAt: time.Now(),
 }
 
@@ -47,7 +47,7 @@ var MockMessageList []*dto.WBSMessage = []*dto.WBSMessage{
 		Origin: dto.Origin{
 			UserID:   MockUser.ID,
 			Username: MockUser.Username,
-			System: true,
+			System:   true,
 		},
 		Payload: "user disconnected",
 	},
@@ -57,7 +57,7 @@ var MockMessageList []*dto.WBSMessage = []*dto.WBSMessage{
 func (p *PostgreSQL_Mock) GetPublicUserInfo(ctx context.Context, userID uint) (*models.User, error) {
 	castedMockUser := MockUser
 	castedMockUser.Role = ""
-	
+
 	return castedMockUser, nil
 }
 

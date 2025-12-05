@@ -2,7 +2,8 @@ package core
 
 import (
 	"context"
-	"web-socket-test/internal/models/dto"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models/dto"
 )
 
 type MessageWriter interface {

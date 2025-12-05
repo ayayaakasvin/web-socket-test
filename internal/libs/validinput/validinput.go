@@ -5,8 +5,9 @@ import (
 	"errors"
 	"slices"
 	"time"
-	"web-socket-test/internal/models"
-	"web-socket-test/internal/models/dto"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/dto"
 )
 
 // Message validation errors
@@ -38,9 +39,9 @@ func ValidateWBSMessage(c *models.Client, msg *dto.WBSMessage) error {
 	msg.Time = time.Now().Format(time.RFC3339)
 
 	msg.Origin = dto.Origin{
-		UserID: c.UserInfo.ID,
+		UserID:   c.UserInfo.ID,
 		Username: c.UserInfo.Username,
-		System: false,
+		System:   false,
 	}
 
 	return nil

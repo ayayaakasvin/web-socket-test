@@ -5,13 +5,13 @@ import (
 	"net/http"
 	"sync"
 
-	"web-socket-test/internal/config"
-	"web-socket-test/internal/models"
-	"web-socket-test/internal/models/core"
-	"web-socket-test/internal/models/dto"
-	"web-socket-test/internal/services/jwtservice"
-	"web-socket-test/internal/web-socket-server/handlers"
-	"web-socket-test/internal/web-socket-server/middlewares"
+	"github.com/ayayaakasvin/web-socket-test/internal/config"
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/core"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/dto"
+	"github.com/ayayaakasvin/web-socket-test/internal/services/jwtservice"
+	"github.com/ayayaakasvin/web-socket-test/internal/web-socket-server/handlers"
+	"github.com/ayayaakasvin/web-socket-test/internal/web-socket-server/middlewares"
 
 	"github.com/ayayaakasvin/lightmux"
 	"github.com/gorilla/websocket"
@@ -19,7 +19,6 @@ import (
 )
 
 const (
-	templateDir   = "./templates/html"
 	allowedOrigin = "http://localhost:4200"
 )
 

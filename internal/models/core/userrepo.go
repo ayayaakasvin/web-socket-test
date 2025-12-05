@@ -2,7 +2,8 @@ package core
 
 import (
 	"context"
-	"web-socket-test/internal/models"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
 )
 
 type UserRepository interface {

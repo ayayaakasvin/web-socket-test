@@ -1,4 +1,4 @@
-module web-socket-test
+module github.com/ayayaakasvin/web-socket-test
 
 go 1.25.4
 

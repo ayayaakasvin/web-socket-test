@@ -2,7 +2,8 @@ package handlers
 
 import (
 	"net/http"
-	"web-socket-test/internal/models/response"
+
+	"github.com/ayayaakasvin/web-socket-test/internal/models/response"
 )
 
 func (h *Handlers) GetClientList() http.HandlerFunc {

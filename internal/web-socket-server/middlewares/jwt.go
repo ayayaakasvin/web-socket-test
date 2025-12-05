@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"strings"
 
-	"web-socket-test/internal/ctx"
-	"web-socket-test/internal/models"
-	"web-socket-test/internal/models/response"
-	"web-socket-test/internal/models/token"
+	"github.com/ayayaakasvin/web-socket-test/internal/ctx"
+	"github.com/ayayaakasvin/web-socket-test/internal/models"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/response"
+	"github.com/ayayaakasvin/web-socket-test/internal/models/token"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -79,13 +79,13 @@ func (m *Middlewares) JWTAdminMiddleware(next http.HandlerFunc) http.HandlerFunc
 
 		if userInfo.Role == "" || userInfo.Role != models.AdminRole {
 			response.SendErrorJson(w, http.StatusForbidden, "forbidden")
-			return 
+			return
 		}
 
 		next(w, r)
 	}
 }
 
-func unauthorized(w http.ResponseWriter, msg string)  {
+func unauthorized(w http.ResponseWriter, msg string) {
 	response.SendErrorJson(w, http.StatusUnauthorized, "%s", msg)
 }
