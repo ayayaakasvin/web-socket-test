@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Simple WS Chat</title>
+  <style>
+    body { font-family: monospace; background:#111; color:#ddd; margin:0; padding:10px; }
+    #log { white-space:pre-wrap; height:80vh; overflow-y:auto; border:1px solid #333; padding:5px; margin-bottom:8px; }
+    input, button { font:inherit; }
+  </style>
+</head>
+<body>
+  <h3>Simple WebSocket Chat</h3>
+  <div>
+    <label>Server: <input id="url" value="ws://172.22.103.37:10000/ws" size="40"></label>
+    <button id="connect">Connect</button>
+  </div>
+  <div id="log"></div>
+  <input id="msg" placeholder="Type message..." size="50">
+  <button id="send">Send</button>
+
+  <script>
+    let ws;
+    const log = document.getElementById('log');
+    const url = document.getElementById('url');
+    const msg = document.getElementById('msg');
+
+    function add(line) {
+        log.textContent += line + '\n';
+        log.scrollTop = log.scrollHeight;
+    }
+
+    document.getElementById('connect').onclick = () => {
+        const token = prompt('Enter your JWT token:');
+        if (!token) return;
+
+        const wsUrl = url.value + '?token=' + encodeURIComponent(token);
+        ws = new WebSocket(wsUrl);
+        ws.onopen = () => add('[connected]');
+        ws.onmessage = e => {
+            try {
+                const data = JSON.parse(e.data);
+                add(`${data.username || 'User'}: ${data.message} (${data.time})`);
+            } catch {
+                add(e.data);
+            }
+        };
+        ws.onclose = () => add('[disconnected]');
+        ws.onerror = e => add('[error]');
+    };
+
+    document.getElementById('send').onclick = () => {
+        if (!ws || ws.readyState !== WebSocket.OPEN) return;
+        const payload = {
+        address: "client", 
+        message: msg.value,
+        time: new Date().toISOString()
+        };
+        ws.send(JSON.stringify(payload));
+        msg.value = '';
+    };
+
+    msg.addEventListener('keydown', e => {
+        if (e.key === 'Enter') document.getElementById('send').click();
+    });
+    </script>
+</body>
+</html>
