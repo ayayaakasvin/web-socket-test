@@ -18,10 +18,6 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-const (
-	allowedOrigin = "http://localhost:4200"
-)
-
 type WBS struct {
 	server *http.Server
 	lmux   *lightmux.LightMux
@@ -32,6 +28,7 @@ type WBS struct {
 	jwtS     *jwtservice.JWTService
 	cc       core.Cache
 	ur       core.UserRepository
+	corsCfg  *config.CorsConfig
 
 	logger *logrus.Logger
 
@@ -60,9 +57,7 @@ func NewWBS(cfg *config.Config, logger *logrus.Logger,
 		wbsUpg: &websocket.Upgrader{
 			ReadBufferSize:  1024,
 			WriteBufferSize: 1024,
-			CheckOrigin: func(r *http.Request) bool {
-				return r.Header.Get("Origin") == allowedOrigin
-			},
+			// the CheckOrigin is set up inside WBS.setupLightMux method 
 		},
 
 		jwtS:     jwtservice.NewJWTService(&cfg.JWTSecret),
@@ -72,6 +67,8 @@ func NewWBS(cfg *config.Config, logger *logrus.Logger,
 		cc:       cc,
 		ur:       ur,
 		logger:   logger,
+
+		corsCfg: &cfg.CorsConfig,
 
 		wbsClients: make(map[models.ID]*websocket.Conn),
 		mutex:      new(sync.RWMutex),
@@ -84,9 +81,11 @@ func NewWBS(cfg *config.Config, logger *logrus.Logger,
 
 func (wbs *WBS) setupLightMux() {
 	hndlrs := handlers.NewHTTPHandlers(wbs.logger, wbs.cc, wbs.jwtS, wbs.clientS, wbs.chatS, wbs.chatRepo, wbs.ur, wbs.wbsUpg)
-	mds := middlewares.NewHTTPMiddlewares(wbs.logger, wbs.cc, wbs.ur, wbs.jwtS)
+	mds := middlewares.NewHTTPMiddlewares(wbs.logger, wbs.corsCfg, wbs.cc, wbs.ur, wbs.jwtS)
 
-	wbs.lmux.Use(mds.LoggerMiddleware, mds.LoggerMiddleware)
+	wbs.wbsUpg.CheckOrigin = mds.WebSocketCheckOrigin()
+
+	wbs.lmux.Use(mds.RecoverMiddleware, mds.LoggerMiddleware, mds.CORSMiddleware)
 
 	wbs.lmux.NewRoute("/ws").Handle(http.MethodGet, hndlrs.WS_Handler())
 	wbs.lmux.NewRoute("/ping").Handle(http.MethodGet, hndlrs.PingHandler())

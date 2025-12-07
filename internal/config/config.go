@@ -23,11 +23,20 @@ type Config struct {
 	// Port int `yaml:"port"`
 	HTTPServer `yaml:"http-server"`
 
+	CorsConfig `yaml:"cors"`
+
 	PostgreSQLConfig
 
 	ValkeyConfig
 
 	JWTSecret `yaml:"jwt"`
+}
+
+type CorsConfig struct {
+	AllowedOrigins     []string `yaml:"allowed_origins"`
+	AllowedMethods     []string `yaml:"allowed_methods"`
+	AllowedHeaders     []string `yaml:"allowed_headers"`
+	AllowedCredentials bool     `yaml:"allow_credentials"`
 }
 
 type HTTPServer struct {

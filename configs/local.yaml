@@ -1,4 +1,13 @@
+---
+cors:
+  allow_credentials: true
+  allowed_headers:
+    - '*'
+  allowed_methods:
+    - '*'
+  allowed_origins:
+    - '*'
 http-server:
-  address: "0.0.0.0:10000"
-  timeout: 10s
+  address: 0.0.0.0:10000
   idle_timeout: 30s
+  timeout: 10s
