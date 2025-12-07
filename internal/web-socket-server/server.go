@@ -87,11 +87,6 @@ func (wbs *WBS) setupLightMux() {
 
 	wbs.lmux.Use(mds.RecoverMiddleware, mds.LoggerMiddleware, mds.CORSMiddleware)
 
-	wbs.lmux.NewRoute("/ping").Handle(http.MethodGet, func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("pong"))
-	})
-
 	wbs.lmux.NewRoute("/ws").Handle(http.MethodGet, hndlrs.WS_Handler())
 	wbs.lmux.NewRoute("/ping").Handle(http.MethodGet, hndlrs.PingHandler())
 	wbs.lmux.NewRoute("/chat-history", mds.JWTAuthMiddleware).Handle(http.MethodGet, hndlrs.GetChatHistory())
